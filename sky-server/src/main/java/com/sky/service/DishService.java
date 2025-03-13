@@ -6,6 +6,8 @@ import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 
+import java.util.List;
+
 /**
  * ClassName: DishService
  * Description:
@@ -17,4 +19,6 @@ public interface DishService {
     public void saveWithFlavor(DishDTO dishDTO);
 
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    void deleteBatch(List<Long> ids);
 }

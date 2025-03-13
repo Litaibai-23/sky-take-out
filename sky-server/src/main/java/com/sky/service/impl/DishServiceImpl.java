@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.SetmealDishMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -77,18 +78,19 @@ public class DishServiceImpl implements DishService {
      * 批量删除菜品
      * @param ids
      */
+    @Transactional
     public void deleteBatch(List<Long> ids) {
         //判断菜品能否删除
         for (Long id : ids) {
             Dish dish = dishMapper.getById(id);
             if (dish.getStatus() == StatusConstant.ENABLE) {
-                throw new RuntimeException(MessageConstant.DISH_ON_SALE);
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
         }
         //判断是否与套餐关联
         List<Long> setmealDishMapper = setmealDish.getSetmealIdByDishId(ids);
         if (setmealDishMapper.size() > 0) {
-            throw new RuntimeException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
         //删除选中菜品的数据
         for (Long id : ids) {

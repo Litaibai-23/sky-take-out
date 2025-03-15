@@ -6,9 +6,18 @@
         INSERT INTO dish (name, category_id, price, image, description, status, create_time, update_time, create_user, update_user)
         VALUES (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
     </insert>
+
     <delete id="deleteById">
         DELETE FROM dish WHERE id = #{id}
     </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM dish WHERE id IN
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="pageQuery" resultType="com.sky.entity.Dish">
         SELECT d.id, d.name, d.price, d.image, d.description, d.status, d.update_time, c.name AS categoryName
         FROM dish d
@@ -19,4 +28,5 @@
             </if>
         </where>
     </select>
+
 </mapper>

@@ -32,7 +32,7 @@ public class CommonController {
 
     /**
      * 文件上传
-     * @param file
+     * @param fileP
      * @return
      */
     @PostMapping("/upload")

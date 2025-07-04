@@ -14,6 +14,7 @@ import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,5 +98,23 @@ public class DishServiceImpl implements DishService {
         dishMapper.deleteByIds(ids);
         //删除菜品对应的口味数据
         dishFlavorMapper.deleteByDishIds(ids);
+    }
+
+    /**
+     * 根据id查询菜品
+     * @param id
+     * @return
+     */
+    @Override
+    public DishVO getByIdWithFlavor(Long id) {
+
+        DishVO dishVO = new DishVO();
+        Dish dish = dishMapper.getById(id);
+        if (dish != null) {
+            BeanUtils.copyProperties(dish, dishVO);
+            List<DishFlavor> flavors = dishFlavorMapper.getByDishId(id);
+            dishVO.setFlavors(flavors);
+        }
+        return dishVO;
     }
 }

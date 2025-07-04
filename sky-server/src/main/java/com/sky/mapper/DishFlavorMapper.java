@@ -26,4 +26,6 @@ public interface DishFlavorMapper {
      * 根据菜品id批量删除口味数据
  */
     void deleteByDishIds(List<Long> ids);
+
+    List<DishFlavor> getByDishId(Long id);
 }

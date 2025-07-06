@@ -13,6 +13,7 @@ import com.sky.entity.DishFlavor;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import org.springframework.beans.BeanUtils;
@@ -116,5 +117,20 @@ public class DishServiceImpl implements DishService {
             dishVO.setFlavors(flavors);
         }
         return dishVO;
+    }
+
+    @Transactional
+    @Override
+    public Result updateWithFlavor(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.updateDish(dish);
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && flavors.size() > 0) {
+            flavors.forEach(dishFlavor -> dishFlavor.setDishId(dishDTO.getId()));
+        }
+        dishFlavorMapper.insertBatch(flavors);
+        return Result.success();
     }
 }

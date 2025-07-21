@@ -28,6 +28,12 @@
             </if>
         </where>
     </select>
+    <select id="list" resultType="com.sky.entity.Dish">
+             SELECT * FROM dish
+             <if test="categoryId != null">
+                 WHERE category_id = #{categoryId}
+             </if>
+    </select>
 
     <update id="updateDish">
         UPDATE dish

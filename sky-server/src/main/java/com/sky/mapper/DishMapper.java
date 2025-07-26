@@ -50,4 +50,6 @@ public interface DishMapper {
     void updateDish(Dish  dish);
 
     List<Dish> list(Dish dish);
+
+    void update(int status, Long id);
 }

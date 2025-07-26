@@ -28,4 +28,6 @@ public interface DishService {
     Result updateWithFlavor(DishDTO dishDTO);
 
     List<DishVO> listWithFlavor(Dish dish);
+
+    void update(Dish dish);
 }

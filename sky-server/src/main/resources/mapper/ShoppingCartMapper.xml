@@ -4,10 +4,9 @@
 <mapper namespace="com.sky.mapper.ShoppingCartMapper">
     <update id="updateNumberById">
         update shopping_cart
-        set number = number + #{number}
+        set number = #{number}
         where id = #{id}
     </update>
-
 
     <select id="list" resultType="com.sky.entity.ShoppingCart">
         select * from shopping_cart

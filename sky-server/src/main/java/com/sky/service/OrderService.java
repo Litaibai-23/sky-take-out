@@ -1,9 +1,12 @@
 package com.sky.service;
 
-import com.sky.dto.OrdersPaymentDTO;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
+import com.sky.result.PageResult;
+import com.sky.result.Result;
 import com.sky.vo.OrderPaymentVO;
+import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
+import com.sky.vo.OrderVO;
 
 /**
  * ClassName: OrderService
@@ -33,4 +36,25 @@ public interface OrderService {
      */
     void paySuccess(String outTradeNo);
 
+    PageResult pageQuery(int pageNum, int pageSize, Integer status);
+
+    OrderVO getOrderDetail(Long id);
+
+    void cancel(Long id);
+
+    void repetition(Long id) throws Exception;
+
+    void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception;
+
+    void confirm(OrdersCancelDTO ordersCancelDTO);
+
+    OrderVO details(Long id);
+
+    void delivery(Long id);
+
+    void complete(Long id);
+
+    PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    OrderStatisticsVO statistics();
 }

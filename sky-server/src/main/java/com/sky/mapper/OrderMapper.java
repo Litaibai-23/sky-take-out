@@ -6,6 +6,7 @@ import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,5 +53,8 @@ public interface OrderMapper {
     Integer countStatus(Integer status);
 
     @Select("select * from orders where status = #{status} and order_time < #{time}")
-    List<Orders> getByStatusAndOrderTime(Integer pendingPayment, LocalDateTime time);
+    List<Orders> getByStatusAndOrderTime(Integer status, LocalDateTime time);
+
+    @Select("select sum(amount) from orders where order_time > #{begin} and order_time < #{end}")
+    Double sumByDate(LocalDate date);
 }

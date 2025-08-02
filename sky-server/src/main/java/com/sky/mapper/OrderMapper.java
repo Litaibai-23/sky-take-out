@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName: OrderMapper
@@ -55,6 +56,6 @@ public interface OrderMapper {
     @Select("select * from orders where status = #{status} and order_time < #{time}")
     List<Orders> getByStatusAndOrderTime(Integer status, LocalDateTime time);
 
-    @Select("select sum(amount) from orders where order_time > #{begin} and order_time < #{end}")
-    Double sumByDate(LocalDate date);
+
+    Double sumByDate(Map map);
 }

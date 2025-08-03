@@ -15,4 +15,20 @@
     <select id="getByOrderId" resultType="com.sky.entity.OrderDetail">
         select * from order_detail where order_id = #{orderId}
     </select>
+    <select id="getTopName" resultType="string">
+        select name as number from order_detail
+        where order_id in
+        (select id from orders where order_time &gt;= #{beginTime} and order_time &lt;= #{endTime})
+        group by name
+        order by number desc
+        limit 10
+    </select>
+    <select id="getTopNumber" resultType="integer">
+        select sum(number) as number from order_detail
+        where order_id in
+        (select id from orders where order_time &gt;= #{beginTime} and order_time &lt;= #{endTime})
+        group by name
+        order by number desc
+        limit 10
+    </select>
 </mapper>

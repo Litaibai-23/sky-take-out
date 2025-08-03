@@ -58,4 +58,13 @@ public interface OrderMapper {
 
 
     Double sumByDate(Map map);
+
+    @Select("select count(id) from orders where order_time >= #{begin} and order_time <= #{end} and status != #{status}")
+    Integer countByMap(Map map);
+
+    @Select("select count(id) from orders where status = #{status} and order_time >= #{begin} and order_time <= #{end}")
+    Integer countStatusAndOrderTime(Map map);
+
+    @Select("select count(id) from orders")
+    Integer countTotalByMap();
 }

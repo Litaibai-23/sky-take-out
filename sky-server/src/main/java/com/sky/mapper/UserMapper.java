@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 /**
  * ClassName: UserMapper
  * Description:
@@ -14,6 +16,14 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface UserMapper {
+    /**
+     * 根据条件统计新增用户数量
+     * @param map
+     * @return
+     */
+    @Select("select count(id) from user where create_time >= #{begin} and create_time <= #{end}")
+    Integer countByMap(Map map);
+
     /**
      * 根据openid查询用户
      * @param openid
@@ -30,4 +40,12 @@ public interface UserMapper {
      * @param user
      */
     void insert(User user);
+
+    /**
+     * 根据条件统计用户数量
+     * @param
+     * @return
+     */
+    @Select("select count(id) from user where create_time <= #{thatTime}")
+    Integer countTotalByMap(Map map);
 }

@@ -38,4 +38,20 @@ public class ReportController {
         log.info("营业额统计：{}到{}", begin, end);
         return Result.success(reportService.turnoverStatistics(begin, end));
     }
+
+    @GetMapping("/userStatistics")
+    @ApiOperation("用户统计")
+    public Result<?> userStatistics(@DateTimeFormat (pattern = "yyyy-MM-dd") LocalDate begin,
+                                    @DateTimeFormat (pattern = "yyyy-MM-dd") LocalDate end){
+        log.info("用户统计：{}到{}", begin, end);
+        return Result.success(reportService.userStatistics(begin, end));
+    }
+
+//    @GetMapping("/orderStatistics")
+//    @ApiOperation("订单统计")
+//    public Result<?> orderStatistics(@DateTimeFormat (pattern = "yyyy-MM-dd") LocalDate begin,
+//                                     @DateTimeFormat (pattern = "yyyy-MM-dd") LocalDate end){
+//        log.info("订单统计：{}到{}", begin, end);
+//        return Result.success(reportService.orderStatistics(begin, end));
+//    }
 }
